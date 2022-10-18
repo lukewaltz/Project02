@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class LinkedList {
@@ -23,6 +24,28 @@ public class LinkedList {
             current_node.setNext(new_node);
         }
     }
+
+    public int length() {
+        int count = 0;
+        Node current = this.head;
+        while (current != null) {
+            count ++;
+            current = current.getNext();
+        }
+        return count;
+    }
+
+    public void insertfront(int value) {
+        Node newNode = new Node(value);
+        if (this.head.getValue() == -1) {
+            this.head = newNode;
+        }
+        else {
+            newNode.setNext(this.head);
+            this.head = newNode;
+        }
+    }
+
     public void check_and_delete_zeros() {
         Node node = this.head;
         while(node.getValue() == 0 && node.getNext() != null) {
@@ -39,17 +62,16 @@ public class LinkedList {
         }
     }
     */
-
     public LinkedList split(int num) {
         LinkedList list = new LinkedList();
         char[] str_num = (String.valueOf(num)).toCharArray();
         for (char ch : str_num) {
-            num = (int) ch;
-            list.append(num);
+            int val = Integer.parseInt(String.valueOf(ch));
+            list.insertfront(val);
         }
         return list;
     }
-    
+
     public Node carry(int ans, int car) {
         Node node = new Node(ans + car);
         return node;
