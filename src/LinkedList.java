@@ -1,3 +1,5 @@
+import java.util.concurrent.LinkedBlockingDeque;
+
 public class LinkedList {
     private Node head;
     public LinkedList() {
@@ -37,17 +39,34 @@ public class LinkedList {
         }
     }
     */
+
+    public LinkedList split(int num) {
+        LinkedList list = new LinkedList();
+        char[] str_num = (String.valueOf(num)).toCharArray();
+        for (char ch : str_num) {
+            num = (int) ch;
+            list.append(num);
+        }
+        return list;
+    }
+    
+    public Node carry(int ans, int car) {
+        Node node = new Node(ans + car);
+        return node;
+    }
+
     public String toString() {
         Node node = this.head;
         String result = "LinkedList: ";
         while (node != null) {
             if (node.getNext() == null) {
                 result += node.getValue();
+                node = node.getNext();
             }
             else {
                 result += node.getValue() + ", ";
+                node = node.getNext();
             }
-            node = node.getNext();
         }
         return result;
     }
