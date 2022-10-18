@@ -1,14 +1,14 @@
 public class LinkedList {
-    private Node first;
+    private Node head;
     public LinkedList() {
-        this.first = new Node(-1);
+        this.head = new Node(-1);
     }
-    public Node getFirst() {
-        return this.first;
+    public Node getHead() {
+        return this.head;
     }
-    public void insert(int value) {
+    public void append(int value) {
         Node new_node = new Node(value);
-        Node current_node = this.first;
+        Node current_node = this.head;
 
         if (current_node.getValue() == -1) {
             current_node.setValue(new_node.getValue());
@@ -22,9 +22,9 @@ public class LinkedList {
         }
     }
     public void check_and_delete_zeros() {
-        Node node = this.first;
+        Node node = this.head;
         while(node.getValue() == 0 && node.getNext() != null) {
-            this.first = node.getNext();
+            this.head = node.getNext();
             node = node.getNext();
         }
     }
@@ -38,17 +38,16 @@ public class LinkedList {
     }
     */
     public String toString() {
-        Node node = this.first;
+        Node node = this.head;
         String result = "LinkedList: ";
         while (node != null) {
             if (node.getNext() == null) {
                 result += node.getValue();
-                node = node.getNext();
             }
             else {
                 result += node.getValue() + ", ";
-                node = node.getNext();
             }
+            node = node.getNext();
         }
         return result;
     }
