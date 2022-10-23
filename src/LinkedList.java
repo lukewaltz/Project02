@@ -50,16 +50,7 @@ public class LinkedList {
             node = node.getNext();
         }
     }
-    /*
-    public void printList() {
-        Node node = this.first;
-        while (node != null) {
-            System.out.print(node.getValue() + ", ");
-            node = node.getNext();
-        }
-    }
-    */
-    public LinkedList split(int num) {
+    public static LinkedList split(int num) {
         LinkedList list = new LinkedList();
         char[] str_num = (String.valueOf(num)).toCharArray();
         for (char ch : str_num) {
@@ -69,59 +60,155 @@ public class LinkedList {
         return list;
     }
 
-    public Node carry(LinkedList list) {
-        if (list.getHead().getNext() == null) {
-            Node node = new Node(0);
-            return node;
+    public int listToInt() {
+        int res = 0;
+        int place = 1;
+        Node current = this.head;
+        while(current != null) {
+            res += current.getValue() * place;
+            place *= 10;
+            current = current.getNext();
         }
-            return list.getHead().getNext();
-        }
-
-
-    public int add(int num1, int num2){
-        LinkedList l1 = split(num1);
-        LinkedList l2 = split(num2);
-        Node cur1 = l1.head;
-        Node cur2 = l2.head;
-        //int carryVal = 0;
-        int sum = 0;
-        while(cur1 != null | cur2 != null){
-            Node carryNode = carry(split(sum));
-            int carryVal = carryNode.getValue();
-            //int sum = 0;
-            if (cur1 == null){
-                sum = cur2.getValue() + carryVal;
-                carryVal = 0;
-            }
-            else if(cur2 == null){
-                sum = cur1.getValue() + carryVal;
-                carryVal = 0;
-            } else {
-                int cur1val = cur1.getValue() + carryVal;
-                int cur2val = cur2.getValue();
-                sum = cur1val + cur2val;
-                if(sum > 9){
-                    LinkedList sumLst = split(sum);
-                }
-            }
-            LinkedList sumLst = split(sum);
-
-        }
-        return sum;
+        return res;
     }
 
-    public String toString() {
-        Node node = this.head;
-        String result = "LinkedList: ";
-        while (node != null) {
-            if (node.getNext() == null) {
-                result += node.getValue();
+    public int add(int num1, int num2) {
+        LinkedList l1 = split(num1);
+        LinkedList l2 = split(num2);
+
+        LinkedList result = new LinkedList();
+        Node cur1 = l1.head;
+        Node cur2 = l2.head;
+        helper_add(result, cur1, cur2, new Node(0));
+
+        return result.listToInt();
+    }
+
+    public void helper_add(LinkedList result, Node n1, Node n2, Node carry) {
+        if (n1 == null & n2 != null) {
+            LinkedList ans = split(n2.getValue() + carry.getValue());
+            if (ans.length() > 1) {
+                result.append(ans.head.getValue());
+                Node carry_node = ans.head.getNext();
+                helper_add(result, null, n2.getNext(), carry_node);
+            } else if (ans.length() == 1) {
+                result.append(ans.head.getValue());
+                Node carry_node = new Node(0);
+                helper_add(result, null, n2.getNext(), carry_node);
+            }
+        }
+        else if (n1 != null & n2 == null) {
+            LinkedList ans = split(n1.getValue() + carry.getValue());
+            if (ans.length() > 1) {
+                result.append(ans.head.getValue());
+                Node carry_node = ans.head.getNext();
+                helper_add(result, n1.getNext(), null, carry_node);
+            } else if (ans.length() == 1) {
+                result.append(ans.head.getValue());
+                Node carry_node = new Node(0);
+                helper_add(result, n1.getNext(), null, carry_node);
+            }
+        }
+        else if (n1 != null & n2 != null) {
+            LinkedList ans = split(n1.getValue() + n2.getValue() + carry.getValue());
+            if (ans.length() > 1) {
+                result.append(ans.head.getValue());
+                Node carry_node = ans.head.getNext();
+                helper_add(result, n1.getNext(), n2.getNext(), carry_node);
+            } else if (ans.length() == 1) {
+                result.append(ans.head.getValue());
+                Node carry_node = new Node(0);
+                helper_add(result, n1.getNext(), n2.getNext(), carry_node);
+            }
+        }
+        else {
+            if (carry.getValue() != 0) {
+                result.append(carry.getValue());
+            }
+        }
+    }
+
+    public int multiply(int num1, int num2) {
+        if (num2 > num1) {
+            int temp = num1;
+            num1 = num2;
+            num2 = temp;
+        }
+        LinkedList l1 = split(num1);
+        LinkedList l2 = split(num2);
+
+        LinkedList result = new LinkedList();
+        result.append(0);
+        LinkedList current = new LinkedList();
+        Node cur1 = l1.head;
+        Node cur2 = l2.head;
+        Node carry = new Node(0);
+        int num_zero = 0;
+
+        while (cur2 != null) {
+            if (cur1 != null) {
+                LinkedList prod = split((cur1.getValue() * cur2.getValue()) + carry.getValue());
+                if (prod.length() > 1) {
+                    current.append(prod.head.getValue());
+                    carry = prod.head.getNext();
+                    cur1 = cur1.getNext();
+                }
+                else if (prod.length() == 1) {
+                    current.append(prod.head.getValue());
+                    carry = new Node(0);
+                    cur1 = cur1.getNext();
+                }
             }
             else {
-                result += node.getValue() + ", ";
+                if (carry.getValue() != 0) {
+                    current.append(carry.getValue());
+                }
+                cur2 = cur2.getNext();
+                cur1 = l1.head;
+                result = split(result.add(result.listToInt(), current.listToInt()));
+                current = new LinkedList();
+                num_zero += 1;
+                int i = num_zero;
+                while (i != 0) {
+                    current.append(0);
+                    i--;
+                }
             }
-            node = node.getNext();
         }
-        return result;
+        return result.listToInt();
+    }
+
+    public int exponent(int x, int n) {
+        LinkedList result = new LinkedList();
+        int res = 1;
+        int x2 = x*x;
+        if (n % 2 == 0) {
+            int i = n / 2;
+            while (i != 0) {
+                res = result.multiply(x2, res);
+                i--;
+            }
+        }
+        else {
+            int i = (n-1) / 2;
+            while (i != 0) {
+                res = result.multiply(x2, res);
+                i--;
+            }
+            res *= x;
+        }
+        return res;
+    }
+
+
+    public String toString() {
+        String res = "";
+        Node current = this.head;
+        while (current != null) {
+            res = current.getValue() + ", " + res;
+            current = current.getNext();
+        }
+        res = "LinkedList: " + res;
+        return res.substring(0, res.length() - 2);
     }
 }

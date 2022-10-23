@@ -24,29 +24,30 @@ public class LinkedListTests {
     @Test
     public void test_split() {
         LinkedList list = new LinkedList();
-        LinkedList l = list.split(436);
+        LinkedList l = LinkedList.split(436);
         String output = l.toString();
-        Assertions.assertEquals(output, "LinkedList: 6, 3, 4");
+        Assertions.assertEquals(output, "LinkedList: 4, 3, 6");
     }
 
     @Test
-    public void test_insertfront_01() {
+    public void test_insertFront_01() {
         LinkedList list = new LinkedList();
         list.append(2);
         list.append(3);
         list.insertFront(1);
         String output = list.toString();
-        Assertions.assertEquals(output, "LinkedList: 1, 2, 3");
+        Assertions.assertEquals(output, "LinkedList: 3, 2, 1");
     }
 
     @Test
-    public void test_insertfront_02() {
+    public void test_insertFront_02() {
         LinkedList list = new LinkedList();
         list.insertFront(3);
         list.insertFront(2);
         list.insertFront(1);
         String output = list.toString();
-        Assertions.assertEquals(output, "LinkedList: 1, 2, 3");
+        Assertions.assertEquals(output, "LinkedList: 3, 2, 1");
+        Assertions.assertEquals(list.listToInt(), 321);
     }
 
     @Test
@@ -54,14 +55,70 @@ public class LinkedListTests {
         LinkedList list = new LinkedList();
         list.append(0);
         list.append(0);
-        list.append(1);
-        list.append(2);
-        list.append(3);
         list.append(4);
+        list.append(3);
+        list.append(2);
+        list.append(1);
 
         list.check_and_delete_zeros();
         String output = list.toString();
         Assertions.assertEquals(output, "LinkedList: 1, 2, 3, 4");
+    }
+
+    @Test
+    public void test_add_01() {
+        LinkedList list = new LinkedList();
+        int add_result = list.add(436, 12);
+        Assertions.assertEquals(add_result, 448);
+    }
+
+    @Test
+    public void test_add_02() {
+        LinkedList list = new LinkedList();
+        int add_result = list.add(1, 999);
+        Assertions.assertEquals(add_result, 1000);
+    }
+
+//    @Test
+//    public void test_add_03() {
+//        LinkedList list = new LinkedList();
+//        int add_result = list.add(1234567890, 987654321);
+//        Assertions.assertEquals(add_result, 2222222211);
+//    }
+//
+//    @Test
+//    public void test_multiply_01() {
+//        LinkedList list = new LinkedList();
+//        int mul_result = list.multiply(111111111, 122333444455555);
+//        Assertions.assertEquals(mul_result, 13592604925913506171605);
+//    }
+
+    @Test
+    public void test_multiply_01() {
+        LinkedList list = new LinkedList();
+        int mul_result = list.multiply(1, 999);
+        Assertions.assertEquals(mul_result, 999);
+    }
+
+    @Test
+    public void test_multiply_02() {
+        LinkedList list = new LinkedList();
+        int mul_result = list.multiply(12, 15);
+        Assertions.assertEquals(mul_result, 180);
+    }
+
+    @Test
+    public void test_exponent_01() {
+        LinkedList list = new LinkedList();
+        int ex_result = list.exponent(10, 5);
+        Assertions.assertEquals(ex_result, 100000);
+    }
+
+    @Test
+    public void test_exponent_02() {
+        LinkedList list = new LinkedList();
+        int ex_result = list.exponent(2, 20);
+        Assertions.assertEquals(ex_result, 1048576);
     }
 
     @Test
@@ -78,24 +135,6 @@ public class LinkedListTests {
         list.check_and_delete_zeros();
         Assertions.assertEquals(list.length(), 4);
         String output = list.toString();
-        Assertions.assertEquals(output, "LinkedList: 1, 2, 0, 3");
-    }
-    @Test
-    public void test_check_and_delete_zeroes_03(){
-        LinkedList list = new LinkedList();
-        list.append(0);
-        list.append(0);
-        list.append(0);
-        list.append(1);
-        list.append(2);
-        list.append(0);
-        list.append(3);
-        list.append(0);
-        list.append(0);
-
-        list.check_and_delete_zeros();
-        Assertions.assertEquals(list.length(), 6);
-        String output = list.toString();
-        Assertions.assertEquals(output, "LinkedList: 1, 2, 0, 3, 0, 0");
+        Assertions.assertEquals(output, "LinkedList: 3, 0, 2, 1");
     }
 }
