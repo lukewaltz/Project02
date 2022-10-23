@@ -1,6 +1,3 @@
-import java.util.Collections;
-import java.util.concurrent.LinkedBlockingDeque;
-
 public class LinkedList {
     private Node head;
     public LinkedList() {
@@ -35,7 +32,7 @@ public class LinkedList {
         return count;
     }
 
-    public void insertfront(int value) {
+    public void insertFront(int value) {
         Node newNode = new Node(value);
         if (this.head.getValue() == -1) {
             this.head = newNode;
@@ -67,14 +64,50 @@ public class LinkedList {
         char[] str_num = (String.valueOf(num)).toCharArray();
         for (char ch : str_num) {
             int val = Integer.parseInt(String.valueOf(ch));
-            list.insertfront(val);
+            list.insertFront(val);
         }
         return list;
     }
 
-    public Node carry(int ans, int car) {
-        Node node = new Node(ans + car);
-        return node;
+    public Node carry(LinkedList list) {
+        if (list.getHead().getNext() == null) {
+            Node node = new Node(0);
+            return node;
+        }
+            return list.getHead().getNext();
+        }
+
+
+    public int add(int num1, int num2){
+        LinkedList l1 = split(num1);
+        LinkedList l2 = split(num2);
+        Node cur1 = l1.head;
+        Node cur2 = l2.head;
+        //int carryVal = 0;
+        int sum = 0;
+        while(cur1 != null | cur2 != null){
+            Node carryNode = carry(split(sum));
+            int carryVal = carryNode.getValue();
+            //int sum = 0;
+            if (cur1 == null){
+                sum = cur2.getValue() + carryVal;
+                carryVal = 0;
+            }
+            else if(cur2 == null){
+                sum = cur1.getValue() + carryVal;
+                carryVal = 0;
+            } else {
+                int cur1val = cur1.getValue() + carryVal;
+                int cur2val = cur2.getValue();
+                sum = cur1val + cur2val;
+                if(sum > 9){
+                    LinkedList sumLst = split(sum);
+                }
+            }
+            LinkedList sumLst = split(sum);
+
+        }
+        return sum;
     }
 
     public String toString() {
@@ -83,12 +116,11 @@ public class LinkedList {
         while (node != null) {
             if (node.getNext() == null) {
                 result += node.getValue();
-                node = node.getNext();
             }
             else {
                 result += node.getValue() + ", ";
-                node = node.getNext();
             }
+            node = node.getNext();
         }
         return result;
     }

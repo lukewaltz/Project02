@@ -34,7 +34,7 @@ public class LinkedListTests {
         LinkedList list = new LinkedList();
         list.append(2);
         list.append(3);
-        list.insertfront(1);
+        list.insertFront(1);
         String output = list.toString();
         Assertions.assertEquals(output, "LinkedList: 1, 2, 3");
     }
@@ -42,9 +42,9 @@ public class LinkedListTests {
     @Test
     public void test_insertfront_02() {
         LinkedList list = new LinkedList();
-        list.insertfront(3);
-        list.insertfront(2);
-        list.insertfront(1);
+        list.insertFront(3);
+        list.insertFront(2);
+        list.insertFront(1);
         String output = list.toString();
         Assertions.assertEquals(output, "LinkedList: 1, 2, 3");
     }
@@ -79,5 +79,23 @@ public class LinkedListTests {
         Assertions.assertEquals(list.length(), 4);
         String output = list.toString();
         Assertions.assertEquals(output, "LinkedList: 1, 2, 0, 3");
+    }
+    @Test
+    public void test_check_and_delete_zeroes_03(){
+        LinkedList list = new LinkedList();
+        list.append(0);
+        list.append(0);
+        list.append(0);
+        list.append(1);
+        list.append(2);
+        list.append(0);
+        list.append(3);
+        list.append(0);
+        list.append(0);
+
+        list.check_and_delete_zeros();
+        Assertions.assertEquals(list.length(), 6);
+        String output = list.toString();
+        Assertions.assertEquals(output, "LinkedList: 1, 2, 0, 3, 0, 0");
     }
 }
