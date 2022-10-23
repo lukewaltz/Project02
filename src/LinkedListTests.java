@@ -26,7 +26,7 @@ public class LinkedListTests {
         LinkedList list = new LinkedList();
         LinkedList l = LinkedList.split(436);
         String output = l.toString();
-        Assertions.assertEquals(output, "LinkedList: 4, 3, 6");
+        Assertions.assertEquals(output, "436");
     }
 
     @Test
