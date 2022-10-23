@@ -202,13 +202,13 @@ public class LinkedList {
 
 
     public String toString() {
-        String res = "";
-        Node current = this.head;
-        while (current != null) {
-            res = current.getValue() + ", " + res;
-            current = current.getNext();
+        String resultStr = "";
+        Node currentNode = this.head;
+        while (currentNode != null) {
+            resultStr = currentNode.getValue() + resultStr;
+            currentNode = currentNode.getNext();
         }
-        res = "LinkedList: " + res;
-        return res.substring(0, res.length() - 2);
+        resultStr = resultStr + resultStr;
+        return resultStr.substring(0, resultStr.length() - this.length());
     }
 }

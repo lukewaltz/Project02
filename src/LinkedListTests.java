@@ -36,7 +36,7 @@ public class LinkedListTests {
         list.append(3);
         list.insertFront(1);
         String output = list.toString();
-        Assertions.assertEquals(output, "LinkedList: 3, 2, 1");
+        Assertions.assertEquals(output, "321");
     }
 
     @Test
@@ -46,7 +46,7 @@ public class LinkedListTests {
         list.insertFront(2);
         list.insertFront(1);
         String output = list.toString();
-        Assertions.assertEquals(output, "LinkedList: 3, 2, 1");
+        Assertions.assertEquals(output, "321");
         Assertions.assertEquals(list.listToInt(), 321);
     }
 
@@ -62,7 +62,7 @@ public class LinkedListTests {
 
         list.check_and_delete_zeros();
         String output = list.toString();
-        Assertions.assertEquals(output, "LinkedList: 1, 2, 3, 4");
+        Assertions.assertEquals(output, "1234");
     }
 
     @Test
@@ -135,6 +135,6 @@ public class LinkedListTests {
         list.check_and_delete_zeros();
         Assertions.assertEquals(list.length(), 4);
         String output = list.toString();
-        Assertions.assertEquals(output, "LinkedList: 3, 0, 2, 1");
+        Assertions.assertEquals(output, "3021");
     }
 }
