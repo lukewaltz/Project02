@@ -84,7 +84,7 @@ public class LinkedListTests {
     @Test
     public void test_add_02() {
         LinkedList list = new LinkedList();
-        String add_result = list.add("1", "999");
+        String add_result = list.add("0001", "999");
         Assertions.assertEquals(add_result, "1000");
     }
 
@@ -148,6 +148,13 @@ public class LinkedListTests {
     public void test_exponent_04() {
         LinkedList list = new LinkedList();
         String ex_result = list.exponent("210", "8");
+        Assertions.assertEquals(ex_result, "3782285936100000000");
+    }
+
+    @Test
+    public void test_exponent_05() {
+        LinkedList list = new LinkedList();
+        String ex_result = list.exponent("10", "50");
         Assertions.assertEquals(ex_result, "3782285936100000000");
     }
 

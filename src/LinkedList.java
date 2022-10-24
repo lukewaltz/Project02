@@ -210,13 +210,13 @@ public class LinkedList {
         LinkedList result = new LinkedList();
         String res = "1";
         String x2 = multiply(x, x);
-        System.out.println(x2);
+        //System.out.println(x2);
         if (Integer.parseInt(n) % 2 == 0) {
             int i = Integer.parseInt(n) / 2;
             while (i != 0) {
                 res = result.multiply(x2, res);
                 i--;
-                System.out.println(res);
+                //System.out.println(res);
 
             }
         }
@@ -225,12 +225,12 @@ public class LinkedList {
             while (i != 0) {
                 res = result.multiply(x2, res);
                 i--;
-                System.out.println(res);
+                //System.out.println(res);
 
             }
-            System.out.println("Final res: " + res);
+            //System.out.println("Final res: " + res);
             res = multiply(res, x);
-            System.out.println("Final res * x: " + res);
+            //System.out.println("Final res * x: " + res);
         }
         return res;
     }
@@ -250,7 +250,7 @@ public class LinkedList {
     //attempted driver
     public void driver(String x, String n, String expected){
         String ex_result = exponent(x, n);
-        System.out.println("Expected: " + expected);
-        System.out.println("Actual: " + ex_result);
+        //System.out.println("Expected: " + expected);
+        //System.out.println("Actual: " + ex_result);
     }
 }
