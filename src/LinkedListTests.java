@@ -22,9 +22,18 @@ public class LinkedListTests {
     }
 
     @Test
+    public void run_driver(){
+        String x = "36";
+        String n = "7";
+        String expected = "64339296875";
+        LinkedList list = new LinkedList();
+        list.driver(x, n, expected);
+    }
+
+    @Test
     public void test_split() {
         LinkedList list = new LinkedList();
-        LinkedList l = LinkedList.split(436);
+        LinkedList l = LinkedList.intSplit(436);
         String output = l.toString();
         Assertions.assertEquals(output, "436");
     }
@@ -68,57 +77,71 @@ public class LinkedListTests {
     @Test
     public void test_add_01() {
         LinkedList list = new LinkedList();
-        int add_result = list.add(436, 12);
-        Assertions.assertEquals(add_result, 448);
+        String add_result = list.add("436", "12");
+        Assertions.assertEquals(add_result, "448");
     }
 
     @Test
     public void test_add_02() {
         LinkedList list = new LinkedList();
-        int add_result = list.add(1, 999);
-        Assertions.assertEquals(add_result, 1000);
+        String add_result = list.add("1", "999");
+        Assertions.assertEquals(add_result, "1000");
     }
 
-//    @Test
-//    public void test_add_03() {
-//        LinkedList list = new LinkedList();
-//        int add_result = list.add(1234567890, 987654321);
-//        Assertions.assertEquals(add_result, 2222222211);
-//    }
-//
-//    @Test
-//    public void test_multiply_01() {
-//        LinkedList list = new LinkedList();
-//        int mul_result = list.multiply(111111111, 122333444455555);
-//        Assertions.assertEquals(mul_result, 13592604925913506171605);
-//    }
+    @Test
+    public void test_add_03() {
+        LinkedList list = new LinkedList();
+        String add_result = list.add("1234567890", "987654321");
+        Assertions.assertEquals(add_result, "2222222211");
+    }
+
+    @Test
+    public void test_multiply_00() {
+        LinkedList list = new LinkedList();
+        String mul_result = list.multiply("111111111", "122333444455555");
+        Assertions.assertEquals(mul_result, "13592604925913506171605");
+    }
 
     @Test
     public void test_multiply_01() {
         LinkedList list = new LinkedList();
-        int mul_result = list.multiply(1, 999);
-        Assertions.assertEquals(mul_result, 999);
+        String mul_result = list.multiply("1", "999");
+        Assertions.assertEquals(mul_result, "999");
     }
 
     @Test
     public void test_multiply_02() {
         LinkedList list = new LinkedList();
-        int mul_result = list.multiply(12, 15);
-        Assertions.assertEquals(mul_result, 180);
+        String mul_result = list.multiply("12", "15");
+        Assertions.assertEquals(mul_result, "180");
     }
 
     @Test
     public void test_exponent_01() {
         LinkedList list = new LinkedList();
-        int ex_result = list.exponent(10, 5);
-        Assertions.assertEquals(ex_result, 100000);
+        String ex_result = list.exponent("10", "5");
+        Assertions.assertEquals(ex_result, "100000");
     }
 
     @Test
     public void test_exponent_02() {
         LinkedList list = new LinkedList();
-        int ex_result = list.exponent(2, 20);
-        Assertions.assertEquals(ex_result, 1048576);
+        String ex_result = list.exponent("2", "20");
+        Assertions.assertEquals(ex_result, "1048576");
+    }
+
+    @Test
+    public void test_exponent_03() {
+        LinkedList list = new LinkedList();
+        String ex_result = list.exponent("20", "8");
+        Assertions.assertEquals(ex_result, "25600000000");
+    }
+
+    @Test
+    public void test_exponent_04() {
+        LinkedList list = new LinkedList();
+        String ex_result = list.exponent("210", "8");
+        Assertions.assertEquals(ex_result, "3782285936100000000");
     }
 
     @Test

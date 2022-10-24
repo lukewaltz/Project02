@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.Assertions;
+
 public class LinkedList {
     private Node head;
     public LinkedList() {
@@ -50,9 +52,13 @@ public class LinkedList {
             node = node.getNext();
         }
     }
-    public static LinkedList split(int num) {
+    public static LinkedList intSplit(int num) {
+        return strSplit(Integer.toString(num));
+    }
+
+    public static LinkedList strSplit(String num) {
         LinkedList list = new LinkedList();
-        char[] str_num = (String.valueOf(num)).toCharArray();
+        char[] str_num = (num).toCharArray();
         for (char ch : str_num) {
             int val = Integer.parseInt(String.valueOf(ch));
             list.insertFront(val);
@@ -72,21 +78,31 @@ public class LinkedList {
         return res;
     }
 
-    public int add(int num1, int num2) {
-        LinkedList l1 = split(num1);
-        LinkedList l2 = split(num2);
+    public String listToString(){
+        StringBuilder result = new StringBuilder();
+        Node current = this.head;
+        while (current != null){
+            result.insert(0,current.getValue());
+            current = current.getNext();
+        }
+        return result.toString();
+    }
+
+    public String add(String num1, String num2) {
+        LinkedList l1 = strSplit(num1);
+        LinkedList l2 = strSplit(num2);
 
         LinkedList result = new LinkedList();
         Node cur1 = l1.head;
         Node cur2 = l2.head;
         helper_add(result, cur1, cur2, new Node(0));
 
-        return result.listToInt();
+        return result.listToString();
     }
 
     public void helper_add(LinkedList result, Node n1, Node n2, Node carry) {
         if (n1 == null & n2 != null) {
-            LinkedList ans = split(n2.getValue() + carry.getValue());
+            LinkedList ans = intSplit((n2.getValue() + carry.getValue()));
             if (ans.length() > 1) {
                 result.append(ans.head.getValue());
                 Node carry_node = ans.head.getNext();
@@ -98,7 +114,7 @@ public class LinkedList {
             }
         }
         else if (n1 != null & n2 == null) {
-            LinkedList ans = split(n1.getValue() + carry.getValue());
+            LinkedList ans = intSplit((n1.getValue() + carry.getValue()));
             if (ans.length() > 1) {
                 result.append(ans.head.getValue());
                 Node carry_node = ans.head.getNext();
@@ -110,7 +126,7 @@ public class LinkedList {
             }
         }
         else if (n1 != null & n2 != null) {
-            LinkedList ans = split(n1.getValue() + n2.getValue() + carry.getValue());
+            LinkedList ans = intSplit((n1.getValue() + n2.getValue()) + carry.getValue());
             if (ans.length() > 1) {
                 result.append(ans.head.getValue());
                 Node carry_node = ans.head.getNext();
@@ -128,26 +144,31 @@ public class LinkedList {
         }
     }
 
-    public int multiply(int num1, int num2) {
-        if (num2 > num1) {
-            int temp = num1;
+    public String multiply(String num1, String num2) {
+        if (strSplit(num2).listToInt() > strSplit(num2).listToInt()) {
+            //switch parameter values
+            String temp = num1;
             num1 = num2;
             num2 = temp;
         }
-        LinkedList l1 = split(num1);
-        LinkedList l2 = split(num2);
+        //String inputs to linked lists
+        LinkedList l1 = strSplit(num1);
+        LinkedList l2 = strSplit(num2);
 
-        LinkedList result = new LinkedList();
-        result.append(0);
-        LinkedList current = new LinkedList();
         Node cur1 = l1.head;
         Node cur2 = l2.head;
         Node carry = new Node(0);
+
+        //Result lists not joined until return statement
+        LinkedList result = new LinkedList();
+        LinkedList current = new LinkedList();
+
+        result.append(0);
         int num_zero = 0;
 
         while (cur2 != null) {
             if (cur1 != null) {
-                LinkedList prod = split((cur1.getValue() * cur2.getValue()) + carry.getValue());
+                LinkedList prod = intSplit((cur1.getValue() * cur2.getValue() + carry.getValue()));
                 if (prod.length() > 1) {
                     current.append(prod.head.getValue());
                     carry = prod.head.getNext();
@@ -165,7 +186,7 @@ public class LinkedList {
                 }
                 cur2 = cur2.getNext();
                 cur1 = l1.head;
-                result = split(result.add(result.listToInt(), current.listToInt()));
+                result = strSplit(add(result.listToString(), current.listToString()));
                 current = new LinkedList();
                 num_zero += 1;
                 int i = num_zero;
@@ -175,27 +196,40 @@ public class LinkedList {
                 }
             }
         }
-        return result.listToInt();
+        return result.listToString();
     }
 
-    public int exponent(int x, int n) {
+    public String exponent(String x, String n) {
+        //edge cases n = 0 or n = 1
+        if (n.equals("1")){
+            return x;
+        } else if (n.equals("0")){
+            return "1";
+        }
         LinkedList result = new LinkedList();
-        int res = 1;
-        int x2 = x*x;
-        if (n % 2 == 0) {
-            int i = n / 2;
+        String res = "1";
+        String x2 = multiply(x, x);
+        System.out.println(x2);
+        if (Integer.parseInt(n) % 2 == 0) {
+            int i = Integer.parseInt(n) / 2;
             while (i != 0) {
                 res = result.multiply(x2, res);
                 i--;
+                System.out.println(res);
+
             }
         }
         else {
-            int i = (n-1) / 2;
+            int i = (Integer.parseInt(n)-1) / 2;
             while (i != 0) {
                 res = result.multiply(x2, res);
                 i--;
+                System.out.println(res);
+
             }
-            res *= x;
+            System.out.println("Final res: " + res);
+            res = multiply(res, x);
+            System.out.println("Final res * x: " + res);
         }
         return res;
     }
@@ -210,5 +244,12 @@ public class LinkedList {
         }
         resultStr = resultStr + resultStr;
         return resultStr.substring(0, resultStr.length() - this.length());
+    }
+
+    //attempted driver
+    public void driver(String x, String n, String expected){
+        String ex_result = exponent(x, n);
+        System.out.println("Expected: " + expected);
+        System.out.println("Actual: " + ex_result);
     }
 }
