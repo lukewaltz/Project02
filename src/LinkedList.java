@@ -183,6 +183,7 @@ public class LinkedList {
             else {
                 if (carry.getValue() != 0) {
                     current.append(carry.getValue());
+                    carry = new Node(0);
                 }
                 cur2 = cur2.getNext();
                 cur1 = l1.head;

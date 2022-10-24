@@ -25,13 +25,13 @@ public class LinkedListTests {
     public void run_driver(){
         String x = "36";
         String n = "7";
-        String expected = "64339296875";
+        String expected = "78364164096";
         LinkedList list = new LinkedList();
         list.driver(x, n, expected);
     }
 
     @Test
-    public void test_split() {
+    public void test_int_split() {
         LinkedList list = new LinkedList();
         LinkedList l = LinkedList.intSplit(436);
         String output = l.toString();
@@ -114,6 +114,13 @@ public class LinkedListTests {
         LinkedList list = new LinkedList();
         String mul_result = list.multiply("12", "15");
         Assertions.assertEquals(mul_result, "180");
+    }
+
+    @Test
+    public void test_multiply_04() {
+        LinkedList list = new LinkedList();
+        String mul_result = list.multiply("36", "36");
+        Assertions.assertEquals(mul_result, "1296");
     }
 
     @Test
