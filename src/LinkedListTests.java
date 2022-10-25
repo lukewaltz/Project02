@@ -155,7 +155,7 @@ public class LinkedListTests {
     public void test_exponent_05() {
         LinkedList list = new LinkedList();
         String ex_result = list.exponent("10", "50");
-        Assertions.assertEquals(ex_result, "3782285936100000000");
+        Assertions.assertEquals(ex_result, "100000000000000000000000000000000000000000000000000");
     }
 
     @Test
